@@ -4,6 +4,7 @@ import "fmt"
 
 func main() {
 	fmt.Printf("main: Pointer that f returned: %x\n", f())
+	fmt.Println(f() == f())
 }
 
 //create a local variable and return it's address
