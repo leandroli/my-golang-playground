@@ -59,5 +59,5 @@ func main() {
 		fmt.Fprintf(os.Stderr, "exercise5.8: parsing %s as HTML: %v", url, err)
 		os.Exit(1)
 	}
-	fmt.Println(ElementByID(doc, "logoDiv"))
+	fmt.Println(ElementByID(doc, "section-intro"))
 }
