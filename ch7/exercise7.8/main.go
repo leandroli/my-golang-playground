@@ -1,4 +1,4 @@
-package main
+package exercise7_8
 
 import "fmt"
 
@@ -13,14 +13,14 @@ func (p Person) String() string {
 
 type columnCmp func(a, b *Person) comparison
 
-type ByColumns struct {
+type PeopleSort struct {
 	p          []Person
 	columns    []columnCmp
 	maxColumns int
 }
 
-func NewByColumns(p []Person, maxColumns int) *ByColumns {
-	return &ByColumns{p, nil, maxColumns}
+func NewPeopleSort(p []Person, maxColumns int) *PeopleSort {
+	return &PeopleSort{p, nil, maxColumns}
 }
 
 type comparison int
@@ -39,7 +39,7 @@ const (
 	BySumOfAgeDigits
 )
 
-func (c *ByColumns) lessName(a, b *Person) comparison {
+func (c *PeopleSort) lessName(a, b *Person) comparison {
 	switch {
 	case a.Name == b.Name:
 		return eq
@@ -50,7 +50,7 @@ func (c *ByColumns) lessName(a, b *Person) comparison {
 	}
 }
 
-func (c *ByColumns) lessSumOfAgeDigits(a, b *Person) comparison {
+func (c *PeopleSort) lessSumOfAgeDigits(a, b *Person) comparison {
 	aSum := sumOfDigits(a.Age)
 	bSum := sumOfDigits(b.Age)
 	switch {
@@ -71,7 +71,7 @@ func sumOfDigits(n int) int {
 	return sum
 }
 
-func (c *ByColumns) lessAge(a, b *Person) comparison {
+func (c *PeopleSort) lessAge(a, b *Person) comparison {
 	switch {
 	case a.Age == b.Age:
 		return eq
@@ -82,10 +82,10 @@ func (c *ByColumns) lessAge(a, b *Person) comparison {
 	}
 }
 
-func (c *ByColumns) Len() int      { return len(c.p) }
-func (c *ByColumns) Swap(i, j int) { c.p[i], c.p[j] = c.p[j], c.p[i] }
+func (c *PeopleSort) Len() int      { return len(c.p) }
+func (c *PeopleSort) Swap(i, j int) { c.p[i], c.p[j] = c.p[j], c.p[i] }
 
-func (c *ByColumns) Less(i, j int) bool {
+func (c *PeopleSort) Less(i, j int) bool {
 	for _, f := range c.columns {
 		cmp := f(&c.p[i], &c.p[j])
 		switch cmp {
@@ -100,7 +100,7 @@ func (c *ByColumns) Less(i, j int) bool {
 	return false
 }
 
-func (c *ByColumns) Select(orderOption OrderOption) {
+func (c *PeopleSort) Select(orderOption OrderOption) {
 	// Prepend the new comparison, as it's the most significant.
 	switch orderOption {
 	case ByName:
