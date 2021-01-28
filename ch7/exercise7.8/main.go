@@ -31,7 +31,15 @@ const (
 	gt
 )
 
-func (c *ByColumns) LessName(a, b *Person) comparison {
+type OrderOption int
+
+const (
+	ByName OrderOption = iota
+	ByAge
+	BySumOfAgeDigits
+)
+
+func (c *ByColumns) lessName(a, b *Person) comparison {
 	switch {
 	case a.Name == b.Name:
 		return eq
@@ -42,7 +50,7 @@ func (c *ByColumns) LessName(a, b *Person) comparison {
 	}
 }
 
-func (c *ByColumns) LessSumOfAgeDigits(a, b *Person) comparison {
+func (c *ByColumns) lessSumOfAgeDigits(a, b *Person) comparison {
 	aSum := sumOfDigits(a.Age)
 	bSum := sumOfDigits(b.Age)
 	switch {
@@ -63,7 +71,7 @@ func sumOfDigits(n int) int {
 	return sum
 }
 
-func (c *ByColumns) LessAge(a, b *Person) comparison {
+func (c *ByColumns) lessAge(a, b *Person) comparison {
 	switch {
 	case a.Age == b.Age:
 		return eq
@@ -92,9 +100,16 @@ func (c *ByColumns) Less(i, j int) bool {
 	return false
 }
 
-func (c *ByColumns) Select(cmp columnCmp) {
+func (c *ByColumns) Select(orderOption OrderOption) {
 	// Prepend the new comparison, as it's the most significant.
-	c.columns = append([]columnCmp{cmp}, c.columns...)
+	switch orderOption {
+	case ByName:
+		c.columns = append([]columnCmp{c.lessName}, c.columns...)
+	case ByAge:
+		c.columns = append([]columnCmp{c.lessAge}, c.columns...)
+	case BySumOfAgeDigits:
+		c.columns = append([]columnCmp{c.lessSumOfAgeDigits}, c.columns...)
+	}
 
 	// Don't let the slice of comparisons grow without bound.
 	if len(c.columns) > c.maxColumns {
