@@ -19,6 +19,7 @@ func main() {
 	var id, class string
 	flag.StringVar(&id, "id", "", "restrict attribute id")
 	flag.StringVar(&class, "class", "", "restrict attribute class")
+	flag.Parse()
 	for {
 		tok, err := dec.Token()
 		if err == io.EOF {
