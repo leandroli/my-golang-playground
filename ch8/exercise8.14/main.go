@@ -8,6 +8,7 @@ import (
 	"fmt"
 	"log"
 	"net"
+	"time"
 )
 
 //!+broadcaster
@@ -62,8 +63,15 @@ func handleConn(conn net.Conn) {
 	messages <- who + " has arrived"
 	entering <- client{ch: ch, name: who}
 
+	timer := time.NewTimer(time.Minute)
+	go func() {
+		<-timer.C
+		conn.Close()
+	}()
+
 	for input.Scan() {
 		messages <- who + ": " + input.Text()
+		timer.Reset(time.Minute)
 	}
 	// NOTE: ignoring potential errors from input.Err()
 
