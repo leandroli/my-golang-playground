@@ -45,6 +45,6 @@ func TestBank(t *testing.T) {
 		t.Errorf("Balance = %d, want %d", got, want)
 	}
 	if OverWithdrawOK := false; OverWithdrawOK != ok {
-		t.Error("withdraw over funds")
+		t.Error("excessive withdrawal")
 	}
 }
