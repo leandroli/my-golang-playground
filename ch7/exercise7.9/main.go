@@ -1,9 +1,9 @@
 package main
 
 import (
+	"github.com/leandroli/my-golang-playground/ch7/exercise7.8"
 	"html/template"
 	"log"
-	"github.com/leandroli/my-golang-playground/ch7/exercise7.8"
 	"net/http"
 	"sort"
 )
