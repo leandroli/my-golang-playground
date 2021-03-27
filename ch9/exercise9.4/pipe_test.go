@@ -1,7 +1,7 @@
 package exercise9_4_test
 
 import (
-	exercise9_4 "my-golang-playground/ch9/exercise9.4"
+	exercise9_4 "github.com/leandroli/my-golang-playground/ch9/exercise9.4"
 	"testing"
 	"time"
 )

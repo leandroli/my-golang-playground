@@ -3,7 +3,7 @@ package main
 import (
 	"html/template"
 	"log"
-	"my-golang-playground/ch7/exercise7.8"
+	"github.com/leandroli/my-golang-playground/ch7/exercise7.8"
 	"net/http"
 	"sort"
 )

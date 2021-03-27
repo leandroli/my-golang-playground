@@ -7,8 +7,8 @@ import (
 	"testing"
 	"time"
 
-	"my-golang-playground/ch9/exercise9.3"
-	"my-golang-playground/ch9/memotest"
+	"github.com/leandroli/my-golang-playground/ch9/exercise9.3"
+	"github.com/leandroli/my-golang-playground/ch9/memotest"
 )
 
 var httpGetBody = memotest.HTTPGetBody
